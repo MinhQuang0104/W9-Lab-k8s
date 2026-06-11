@@ -1,0 +1,39 @@
+name: validate
+
+on:
+  pull_request:
+    paths:
+      - "k8s/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    # Thêm permissions để tăng tính bảo mật
+    permissions:
+      contents: read
+      pull-requests: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Tối ưu: Cache kubeconform để CI chạy dưới 5 giây
+      - name: Cache Kubeconform
+        id: cache-kubeconform
+        uses: actions/cache@v4
+        with:
+          path: /usr/local/bin/kubeconform
+          key: ${{ runner.os }}-kubeconform-v0.6.7
+
+      # Chỉ tải nếu chưa có trong Cache
+      - name: Install Kubeconform
+        if: steps.cache-kubeconform.outputs.cache-hit != 'true'
+        run: |
+          curl -sSLo kc.tgz https://github.com/yannh/kubeconform/releases/download/v0.6.7/kubeconform-linux-amd64.tar.gz
+          tar -xzf kc.tgz
+          sudo mv kubeconform /usr/local/bin/
+          rm kc.tgz
+
+      # Tiến hành quét kiểm tra lỗi cú pháp K8s Manifests
+      - name: Validate Kubernetes manifests
+        run: kubeconform -strict -summary k8s/
