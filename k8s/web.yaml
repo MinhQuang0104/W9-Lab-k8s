@@ -16,7 +16,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1" # Chạy thứ 3 (đợi ConfigMap có sẵn)
 spec:
-  replicas: 2
+  replicaaaaas: 2
   selector:
     matchLabels:
       app: web
