@@ -3,6 +3,6 @@ kind: Application
 metadata: { name: web, namespace: argocd }
 spec:
   project: default
-  source: { repoURL: https://github.com/MinhQuang0104/W9-Lab-k8s.git, path: k8s }
+  source: { repoURL: https://github.com/<ban>/gitops.git, path: k8s }
   destination: { server: https://kubernetes.default.svc, namespace: demo }
   syncPolicy: { automated: { prune: true, selfHeal: true } }
