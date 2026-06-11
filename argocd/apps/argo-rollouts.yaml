@@ -4,6 +4,7 @@ metadata:
   name: argo-rollouts
   namespace: argocd          # Vẫn bắt buộc là argocd để App Root quản lý
 spec:
+  project: default
   source:
     repoURL: https://argoproj.github.io/argo-helm   # Đường dẫn kho của Argo
     chart: argo-rollouts                            # Tên chart của Rollouts
