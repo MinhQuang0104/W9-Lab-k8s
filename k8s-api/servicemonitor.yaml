@@ -3,7 +3,11 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor       # Prometheus scrape /metrics
 metadata:
   name: api
+  namespace: demo
+  labels:
+    # BẮT BUỘC: Thêm nhãn này để Prometheus chịu quét file này
+    release: kube-prometheus-stack
 spec:
   selector: { matchLabels: { app: api } }
-  endpoints: [ { port: http, path: /metrics, interval: 15s } ]
+  endpoints: [ { port: web, path: /metrics, interval: 15s } ]
 # file: argocd/apps/api.yaml -> Application, path: k8s-api, ns: demo
