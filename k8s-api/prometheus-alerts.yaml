@@ -1,0 +1,23 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: api-burn-rate-alerts
+  namespace: monitoring
+  labels:
+    role: alert-rules
+spec:
+  groups:
+  - name: api-slo
+    rules:
+    - alert: ApiFastBurnRate
+      # Nếu tỉ lệ lỗi trong 5 phút qua > 2% (đốt cháy ngân sách lỗi cực nhanh)
+      expr: |
+        sum(rate(flask_http_request_total{status=~"5..", namespace="demo"}[5m])) 
+        / 
+        sum(rate(flask_http_request_total{namespace="demo"}[5m])) > 0.02
+      for: 2m
+      labels:
+        severity: critical
+      annotations:
+        summary: "API đang tiêu hao Error Budget quá nhanh!"
+        description: "Tỉ lệ lỗi 5xx hiện tại vượt ngưỡng an toàn trong 5 phút qua."
