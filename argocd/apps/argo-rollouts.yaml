@@ -25,6 +25,7 @@ spec:
       kind: CustomResourceDefinition
       jsonPointers:
         - /metadata/annotations/controller-gen.kubebuilder.io~1version
+        - /spec/preserveUnknownFields
         - /status
       managedFieldsManagers:
         - kube-apiserver
