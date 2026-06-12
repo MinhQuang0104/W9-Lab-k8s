@@ -36,6 +36,7 @@ spec:
                 email_configs:
                   - to: 'quangminhtran.kd@gmail.com'
                     send_resolved: true
+              - name: 'null'
   destination: { server: https://kubernetes.default.svc, namespace: monitoring }
   syncPolicy: { automated: { prune: true, selfHeal: true },
                 syncOptions: [CreateNamespace=true, ServerSideApply=true] }
