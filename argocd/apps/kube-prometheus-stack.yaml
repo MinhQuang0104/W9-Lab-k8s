@@ -13,6 +13,11 @@ spec:
         prometheus:
           prometheusSpec:
             serviceMonitorSelectorNilUsesHelmValues: false
+            serviceMonitorSelector: {}
+            serviceMonitorNamespaceSelector: {}
+            ruleSelectorNilUsesHelmValues: false
+            ruleSelector: {}
+            ruleNamespaceSelector: {}
         alertmanager:
           alertmanagerSpec:
             secrets:
@@ -22,7 +27,7 @@ spec:
               smtp_smarthost: 'smtp.gmail.com:587'
               smtp_from: 'quangminhtran.kd@gmail.com'
               smtp_auth_username: 'quangminhtran.kd@gmail.com'
-              smtp_auth_password_file: '/etc/alertmanager/secrets/alertmanager-gmail-secret/password'
+              smtp_auth_password_file: '/etc/alertmanager/secrets/alertmanager-smtp/smtp-auth-password'
             route:
               group_by: ['alertname']
               receiver: 'email-me'
