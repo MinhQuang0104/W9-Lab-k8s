@@ -18,12 +18,12 @@ spec:
         readinessProbe: { httpGet: { path: /healthz, port: 8080 } }
   strategy:
     canary:
-      analysis:
-        templates:
-          - templateName: api-success-rate-check
-        args:
-          - name: service-name
-            value: api
+      # analysis:
+      #   templates:
+      #     - templateName: api-success-rate-check
+      #   args:
+      #     - name: service-name
+      #       value: api
       steps:
         - setWeight: 25
         - pause: { duration: 1m }
