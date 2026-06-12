@@ -8,7 +8,7 @@ spec:
   - name: success-rate
     interval: 30s
     successCondition: result[0] >= 0.95
-    failureLimit: 3
+    failureLimit: 5
     provider:
       prometheus:
         address: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090
